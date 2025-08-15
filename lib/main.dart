@@ -29,6 +29,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  void _pushPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return NextPage();
+        },
+      ),
+    );
+  }
+
+  void _modalPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return NextPage();
+        },
+        fullscreenDialog: true, // フルスクリーンダイアログとして表示
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +60,46 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                _pushPage();
+              },
+              child: Text('プッシュ遷移'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _modalPage();
+              },
+              child: Text('モーダル遷移'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class NextPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Next Page')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('NextPageです'),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('戻る'),
+            ),
+          ],
+        ),
       ),
     );
   }
