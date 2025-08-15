@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return NextPage();
+          return NextPage(id: 1, name: 'プッシュ呼び出し');
         },
       ),
     );
@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return NextPage();
+          return NextPage(id: 2, name: 'モーダル呼び出し');
         },
         fullscreenDialog: true, // フルスクリーンダイアログとして表示
       ),
@@ -83,20 +83,28 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class NextPage extends StatelessWidget {
+  NextPage({required this.id, required this.name});
+
+  final int id;
+  final String name;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Next Page')),
+      appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('NextPageです'),
+            Text(
+              'Next Pageです。id = $id, name = $name',
+              style: TextStyle(fontSize: 15),
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('戻る'),
+              child: Text(id == 1 ? '戻る' : '閉じる'),
             ),
           ],
         ),
